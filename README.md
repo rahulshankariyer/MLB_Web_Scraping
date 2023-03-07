@@ -157,6 +157,8 @@ Each page however, contains only 50 players. But there are 347 in the list and h
             final_df = pd.concat([final_df,temp_df],ignore_index = True)
     final_df
 
+## Exporting the data to a CSV file
+
 Finally, the data in the dataframe 'final_df' was exported to a CSV file.
 
     # Export to csv
