@@ -130,3 +130,35 @@ For extracting the player rows, we can use the compile function of the 're' libr
 
         # Join the single player's stats with the overall dataset
         final_df = pd.concat([final_df,temp_df],ignore_index = True)
+
+Each page however, contains only 50 players. But there are 347 in the list and hence, to extract the data of all 347 players, all the URLs need to be recreated so that all the data from player 1 to 347 can be scraped in increments of 50, using the same code above.
+
+    # Looping through each page to capture all 347 players in the league, 50 players at a time
+    for i in range(1,347,50):
+        # Pull in website source code
+        url = 'https://www.espn.com/mlb/history/leaders/_/breakdown/season/year/2022/start/{}'.format(i)
+        page = requests.get(url)
+        soup = BeautifulSoup(page.text, "html.parser")
+
+        # Pull in the player rows
+        ## Identify Player rows
+
+        players = soup.find_all('tr',attrs = {'class': re.compile('row player-10-')})
+        for player in players:
+
+            ## Get the stats for each player
+            stats = [stat.get_text() for stat in player.find_all('td')]
+
+            #Create a dataframe for the single player's stats
+            temp_df = pd.DataFrame(stats).transpose()
+            temp_df.columns = columns
+
+            # Join the single player's stats with the overall dataset
+            final_df = pd.concat([final_df,temp_df],ignore_index = True)
+    final_df
+
+Finally, the data in the dataframe 'final_df' was exported to a CSV file.
+
+    # Export to csv
+
+    final_df.to_csv(r"Desktop\mlb_stats.csv",index = False,sep = ',',encoding = 'utf-8')
