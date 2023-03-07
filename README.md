@@ -2,19 +2,26 @@
 
 ## Project Objective
 
-To scrape MLB player related data from ESPN and store in a CSV file.
+To scrape the data of Batting performance alone of all (total number) players in Major League Baseball in 2022, from a larger dataset of batting and pitching statistics, and store it in a CSV file.
 
 ## Data Used
 
-In this project, we scraped the <a href = "https://www.espn.com/mlb/history/leaders/_/breakdown/season/year/2022/start/1"> Batting Statistics of all MLB players from the 2022 season </a>
+ESPN's <a href = "https://www.espn.com/mlb/history/leaders/_/breakdown/season/year/2022/start/1"> MLB Statistics 2022 season </a>
 
 ## Tools Used
 
-1. Python
+Python Libraries - 
+
+1. pandas
+2. requests (to read website's source code)
+3. BeautifulSoup (to search and parse the website's code)
+4. Regular Expressions (re)
 
 ## Web Scraping Process
 
-The first step in this process is to import all the necessary libraries, with BeautifulSoup being the most important library.
+### Step 1:
+
+Import all necessary Python libraries (in Jupyter Notebook)
 
     # Import Libraries
 
@@ -23,11 +30,15 @@ The first step in this process is to import all the necessary libraries, with Be
     import requests
     from bs4 import BeautifulSoup
 
-Next, the get() function was called using the 'requests' library in order to access the website from which the data is going to be scraped.
+### Step 2:
+
+Access the website from which the data is to be scraped, using <b> requests </b> library's get() method, using the code - 
 
     page = requests.get("http://www.espn.com/mlb/history/leaders/_/breakdown/season/year/2022/start/1")
-    
-The below code gives a view of what the contents of the webpage are.
+
+### Step 3:
+
+View the source code of the website with the get request:
 
     page.text
     
