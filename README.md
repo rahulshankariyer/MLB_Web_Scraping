@@ -41,32 +41,40 @@ Access the website from which the data is to be scraped, using <b> requests </b>
 View the source code of the website with the get request:
 
     page.text
-    
-The next step is now to pull in the website's source code using the BeautifulSoup library.
+
+### Step 4:
+
+Use BeautifulSoup Library to parse the website's code.
 
     # Pull in the Websites source code
 
     soup = BeautifulSoup(page.text, "html.parser")
-    
-We can also type code to extract the stats of any particular player now using the source code. The below code for example, fetches the 2022 stats of Jeff McNeil, who tops the overall batting list.
+  
+### Step 5:
+
+Use BeautifulSoup Library's find() and find_all() to extract information from the source code. 
+
+We can type code to extract the stats of any player. For example, to fetch the 2022 stats of Jeff McNeil, who tops the overall batting list -
 
     soup.find_all('tr',attrs = {'class':'oddrow player-10-33900'})
 
-The first thing that needs to be done though is to extract the column headers. That can be done using the code below.
+### Step 6:
+
+Scrape Column Headers, use the code - 
 
     soup.find_all('tr',attrs = {'class':'colhead'})
     
-This code finds all instances of the code where the 'class' tag is given as 'colhead'. Since each page on the MLB stats page contains 50 players and there's table header after every 10 players, the above code should display the table header code 5 times. However, if the find() function is used instead of the find_all() function, then the table header will be displayed only once.
+This code finds all instances of the code where the 'class' tag is given as 'colhead'. Since each page on EPSN's MLB stats page contains 50 players and there is a table header after every 10 players, the above code should display the table header code 5 times. However, if the find() function is used instead of the find_all() function, then the table header will be displayed only once.
 
     soup.find('tr',attrs = {'class':'colhead'})
     
-Now, in order to display a player's stats without all the HTML code, one can simply store the results of the find function in a separate variable and then extract the text part from each part of the row.
+In order to display a player's stats without all the HTML code, one can simply store the results of the find() function in a separate variable and then extract the text part from each part of the row.
 
     row = soup.find('tr',attrs = {'class':'oddrow player-10-33900'})
     for data in row.find_all('td'):
         print(data.get_text())
 
-Output:
+<b> Output: </b>
 
 1
 
@@ -100,7 +108,11 @@ Jeff McNeil
 
 .326
 
-Now, using the lines of code discussed above the all the players statistics can be scraped. First, we will start with creating the column names for the table header. 
+All the players statistics can be scraped using a similar code.
+
+### Step 7:
+
+Create column names for a pandas DataFrame to store the stats of all the players, which can be exported to a .csv file. 
 
     # Create column names from the table header
     ## Identify Header Row
@@ -124,6 +136,8 @@ Output:
 PLAYER	YRS	G	AB	R	H	2B	3B	HR	RBI	BB	SO	SB	CS	BA
 ----------------------------------------------
 
+### Step 8:
+
 For extracting the player rows, we can use the compile function of the 're' library as all the player classes begin with 'oddrow' or 'evenrow' followed by 'player-10-'. Once that is extracted, then the stats will be populated into the 'final_df' data frame.
 
     # Pull in the player rows
@@ -142,7 +156,9 @@ For extracting the player rows, we can use the compile function of the 're' libr
         # Join the single player's stats with the overall dataset
         final_df = pd.concat([final_df,temp_df],ignore_index = True)
 
-Each page however, contains only 50 players. But there are 347 in the list and hence, to extract the data of all 347 players, all the URLs need to be recreated so that all the data from player 1 to 347 can be scraped in increments of 50, using the same code above.
+### Step 9:
+
+This will get the stats on each page which contains only 50 players. To extract the data of all 347 players in the MLB 2022 season, the data from all the page URLs have to be scraped. All the URLs need to be recreated so that all the data from player 1 to 347 can be scraped in increments of 50, using the same code above.
 
     # Looping through each page to capture all 347 players in the league, 50 players at a time
     for i in range(1,347,50):
@@ -168,9 +184,9 @@ Each page however, contains only 50 players. But there are 347 in the list and h
             final_df = pd.concat([final_df,temp_df],ignore_index = True)
     final_df
 
-## Exporting the data to a CSV file
+## Step 10: 
 
-Finally, the data in the dataframe 'final_df' was exported to a CSV file.
+Export the data from the dataframe 'final_df' to a CSV file.
 
     # Export to csv
 
