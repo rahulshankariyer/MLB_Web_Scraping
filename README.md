@@ -2,7 +2,7 @@
 
 ## Project Objective
 
-To scrape the data of Batting performance alone of all (total number) players in Major League Baseball in 2022, from a larger dataset of batting and pitching statistics, and store it in a CSV file.
+To scrape data pertaining to only the batting performance alone of all 347 players in Major League Baseball, USA in 2022, from a larger dataset of batting, pitching, fielding and other statistics, and store it in a CSV file.
 
 ## Data Used
 
@@ -15,7 +15,7 @@ Python Libraries -
 1. pandas
 2. requests (to read website's source code)
 3. BeautifulSoup (to search and parse the website's code)
-4. Regular Expressions (re)
+4. re (Regular Expressions)
 
 ## Web Scraping Process
 
@@ -58,7 +58,7 @@ Use BeautifulSoup Library to parse the website's code.
 
 Use BeautifulSoup Library's find() and find_all() to extract information from the source code. 
 
-We can type code to extract the stats of any player. For example, to fetch the 2022 stats of Jeff McNeil, who tops the overall batting list -
+We can type the code to extract the stats of any player. For example, to fetch the 2022 stats of Jeff McNeil, who tops the overall batting list -
 
     soup.find_all('tr',attrs = {'class':'oddrow player-10-33900'})
 
@@ -78,7 +78,7 @@ Scrape Column Headers, use the code -
 
 
 
-This code finds all instances of the code where the 'class' tag is given as 'colhead'. Since each page on EPSN's MLB stats page contains 50 players and there is a table header after every 10 players, the above code should display the table header code 5 times. However, if the find() function is used instead of the find_all() function, then the table header will be displayed only once.
+This code finds all instances of the code where the 'class' tag is given as 'colhead'. Since each page on EPSN's MLB stats page contains 50 players and there is a table header after every 10 players, the above code displays the table header code 5 times. However, if the find() function is used instead of the find_all() function, then the table header will be displayed only once.
 
     soup.find('tr',attrs = {'class':'colhead'})
     
