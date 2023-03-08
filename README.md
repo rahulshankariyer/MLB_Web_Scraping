@@ -41,6 +41,10 @@ Access the website from which the data is to be scraped, using <b> requests </b>
 View the source code of the website with the get request:
 
     page.text
+    
+<b> Output: </b>
+
+'\n<!DOCTYPE html>\n<html xmlns:fb="https://www.facebook.com/2008/fbml">\n<head>\n\n<script>\n(function redirectToHttpIfHttps() {\n   var win      = typeof window !== \'undefined\' && window,\n       location = win && win.location,\n       protocol = location && location.protocol;\n\n   if (protocol === \'https:\' && !true) {\n        location.href = location.href.replace(\'https://\', \'http://\');\n   }\n})();\n</script><meta charset="iso-8859-1">\n<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">\n<link rel="icon" sizes="any" mask href="https://a.espncdn.com/favicon.ico">\n<meta name="theme-color" content="#CC0000">\n<script type="text/javascript">\n    if(true && navigator && navigator.userAgent.toLowerCase().indexOf("teamstream") >= 0) {\n        window.location = \'http://m.espn.com/mobilecache/general/apps/sc\';\n    }\n</script><title>MLB Baseball Career Batting Leaders - Major League Baseball - ESPN</title>\n<meta name="google-site-verification" content="xuj1ODRluWa0frM-BjIr_aSHoUC7HB5C1MgmYAM_GkA" />\n<meta name="msvalidate.01" content="B1FEB7C682C46C8FCDA3130F3D18AC28" />\n<meta name="googlebot" content="noodp" />\n<meta name="robots" content="index, follow" />\n<meta name="description" content="Look for your favorite MLB slugger in this impressive list of baseball\'s top 500 career batting leaders." />\n<meta name="keywords" content="MLB Career Batting Leaders, MLB career pitching leaders, batting average leaders, pitching leaders, MLB historical leaders"...............
 
 ### Step 4:
 
@@ -58,16 +62,30 @@ We can type code to extract the stats of any player. For example, to fetch the 2
 
     soup.find_all('tr',attrs = {'class':'oddrow player-10-33900'})
 
+<b> Output: </b>
+
+[<tr align="right" class="oddrow player-10-33900"><td align="left">1</td><td align="left"><a href="https://www.espn.com/mlb/player/_/id/33900/jeff-mcneil"><span class="bi">Jeff McNeil</span></a></td><td align="left">5</td><td>148</td><td>533</td><td>73</td><td>174</td><td>39</td><td>1</td><td>9</td><td>62</td><td>40</td><td>61</td><td>4</td><td>0</td><td class="sortcell">.326</td></tr>]
+
 ### Step 6:
 
 Scrape Column Headers, use the code - 
 
     soup.find_all('tr',attrs = {'class':'colhead'})
-    
+
+<b> Output: </b> (Displayed 5 times)
+
+<tr align="right" class="colhead"><td></td><td align="left" width="30%">PLAYER</td><td align="left">YRS</td><td><a href="//www.espn.com/mlb/history/leaders/_/breakdown/season/year/2022/sort/gamesPlayed" title="Games">G</a></td><td><a href="//www.espn.com/mlb/history/leaders/_/breakdown/season/year/2022/sort/atBats" title="At Bats">AB</a></td><td><a href="//www.espn.com/mlb/history/leaders/_/breakdown/season/year/2022/sort/runs" title="Runs Scored">R</a></td><td><a href="//www.espn.com/mlb/history/leaders/_/breakdown/season/year/2022/sort/hits" title="Hits">H</a></td><td><a href="//www.espn.com/mlb/history/leaders/_/breakdown/season/year/2022/sort/doubles" title="Doubles">2B</a></td><td><a href="//www.espn.com/mlb/history/leaders/_/breakdown/season/year/2022/sort/triples" title="Triples">3B</a></td><td><a href="//www.espn.com/mlb/history/leaders/_/breakdown/season/year/2022/sort/homeRuns" title="Home Runs">HR</a></td><td><a href="//www.espn.com/mlb/history/leaders/_/breakdown/season/year/2022/sort/RBIs" title="Runs Batted In">RBI</a></td><td><a href="//www.espn.com/mlb/history/leaders/_/breakdown/season/year/2022/sort/walks" title="Walks">BB</a></td><td><a href="//www.espn.com/mlb/history/leaders/_/breakdown/season/year/2022/sort/strikeouts" title="Strikeouts">SO</a></td><td><a href="//www.espn.com/mlb/history/leaders/_/breakdown/season/year/2022/sort/stolenBases" title="Stolen Bases">SB</a></td><td><a href="//www.espn.com/mlb/history/leaders/_/breakdown/season/year/2022/sort/caughtStealing" title="Caught Stealing">CS</a></td><td class="sortcell">BA</td></tr>,
+
+
+
 This code finds all instances of the code where the 'class' tag is given as 'colhead'. Since each page on EPSN's MLB stats page contains 50 players and there is a table header after every 10 players, the above code should display the table header code 5 times. However, if the find() function is used instead of the find_all() function, then the table header will be displayed only once.
 
     soup.find('tr',attrs = {'class':'colhead'})
     
+<b> Output: </b>
+
+<tr align="right" class="colhead"><td></td><td align="left" width="30%">PLAYER</td><td align="left">YRS</td><td><a href="//www.espn.com/mlb/history/leaders/_/breakdown/season/year/2022/sort/gamesPlayed" title="Games">G</a></td><td><a href="//www.espn.com/mlb/history/leaders/_/breakdown/season/year/2022/sort/atBats" title="At Bats">AB</a></td><td><a href="//www.espn.com/mlb/history/leaders/_/breakdown/season/year/2022/sort/runs" title="Runs Scored">R</a></td><td><a href="//www.espn.com/mlb/history/leaders/_/breakdown/season/year/2022/sort/hits" title="Hits">H</a></td><td><a href="//www.espn.com/mlb/history/leaders/_/breakdown/season/year/2022/sort/doubles" title="Doubles">2B</a></td><td><a href="//www.espn.com/mlb/history/leaders/_/breakdown/season/year/2022/sort/triples" title="Triples">3B</a></td><td><a href="//www.espn.com/mlb/history/leaders/_/breakdown/season/year/2022/sort/homeRuns" title="Home Runs">HR</a></td><td><a href="//www.espn.com/mlb/history/leaders/_/breakdown/season/year/2022/sort/RBIs" title="Runs Batted In">RBI</a></td><td><a href="//www.espn.com/mlb/history/leaders/_/breakdown/season/year/2022/sort/walks" title="Walks">BB</a></td><td><a href="//www.espn.com/mlb/history/leaders/_/breakdown/season/year/2022/sort/strikeouts" title="Strikeouts">SO</a></td><td><a href="//www.espn.com/mlb/history/leaders/_/breakdown/season/year/2022/sort/stolenBases" title="Stolen Bases">SB</a></td><td><a href="//www.espn.com/mlb/history/leaders/_/breakdown/season/year/2022/sort/caughtStealing" title="Caught Stealing">CS</a></td><td class="sortcell">BA</td></tr>
+
 In order to display a player's stats without all the HTML code, one can simply store the results of the find() function in a separate variable and then extract the text part from each part of the row.
 
     row = soup.find('tr',attrs = {'class':'oddrow player-10-33900'})
@@ -131,7 +149,7 @@ Create column names for a pandas DataFrame to store the stats of all the players
     final_df = pd.DataFrame(columns=columns)
     final_df
 
-Output:
+<b> Output: </b>
 
 PLAYER	YRS	G	AB	R	H	2B	3B	HR	RBI	BB	SO	SB	CS	BA
 ----------------------------------------------
@@ -183,6 +201,10 @@ This will get the stats on each page which contains only 50 players. To extract 
             # Join the single player's stats with the overall dataset
             final_df = pd.concat([final_df,temp_df],ignore_index = True)
     final_df
+
+<b> Output: </b>
+
+![alt text](https://raw.githubusercontent.com/rahulshankariyer/MLB_Web_Scraping/main/MLB%20Batting%20Statistics%202022.png)
 
 ## Step 10: 
 
