@@ -219,17 +219,31 @@ Export the data from the dataframe 'final_df' to a CSV file.
 The column names in the above created data frame, which represent various batting stats, are given in short forms. Anyone who's not well versed with baseball stats may refer to the below key to know what each column represents.
 
 <b>PLAYER - </b>Player Name
+    
 <b>YRS - </b>MLB Seasons Played (inclusive of the 2022 season for which the data was scraped)
+    
 <b>G - </b>Games Played 
+    
 <b>AB - </b>At-Bats, ie, Plate Appearences
+    
 <b>R - </b>Runs
+    
 <b>H - </b>Hits
+    
 <b>2B - </b>Doubles
+    
 <b>3B - </b>Triples
+    
 <b>HR - </b>Home Runs
+    
 <b>RBI - </b>Runs Batted In
+    
 <b>BB - </b>Base on Balls, ie, Walks
+    
 <b>SO - </b>Strike Outs
+    
 <b>SB - </b>Stolen Bases
+    
 <b>CS - </b>Caught Stealing
+    
 <b>BA - </b>Batting Average
