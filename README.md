@@ -216,7 +216,7 @@ Export the data from the dataframe 'final_df' to a CSV file.
 
 ## Key:
 
-The column names in the above created data frame, which represent various batting stats, are given in short forms. Anyone who's not well versed with baseball stats may refer to the below key to know what each column represents.
+The column names in the above created data frame, which represent various batting stats, are given in short forms. Anyone not familiar with baseball stats may refer to the below key to know what each column represents.
 
 <b>PLAYER - </b>Player Name
     
