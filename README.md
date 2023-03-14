@@ -2,7 +2,7 @@
 
 ## Project Objective
 
-To scrape data pertaining to only the batting performance alone of all 347 players in Major League Baseball, USA in 2022, from a larger dataset of batting, pitching, fielding and other statistics, and store it in a CSV file.
+To scrape data pertaining to the batting performance of all 347 players in Major League Baseball, USA in 2022, from a larger dataset of batting, pitching, fielding and other statistics, and store it in a CSV file.
 
 ## Data Used
 
@@ -10,7 +10,7 @@ ESPN's <a href = "https://www.espn.com/mlb/history/leaders/_/breakdown/season/ye
 
 ## Tools Used
 
-Python Libraries - 
+<b> Python Libraries (in Jupyter Notebook) - </b>
 
 1. pandas
 2. requests (to read website's source code)
@@ -21,7 +21,7 @@ Python Libraries -
 
 ### Step 1:
 
-Import all necessary Python libraries (in Jupyter Notebook)
+Import all the necessary Python libraries
 
     # Import Libraries
 
@@ -32,7 +32,7 @@ Import all necessary Python libraries (in Jupyter Notebook)
 
 ### Step 2:
 
-Access the website from which the data is to be scraped, using <b> requests </b> library's get() method, using the code - 
+Access the website from which the data is to be scraped, using <b> requests </b> library's <b>.get()</b> method, using the code - 
 
     page = requests.get("http://www.espn.com/mlb/history/leaders/_/breakdown/season/year/2022/start/1")
 
@@ -68,7 +68,7 @@ We can type the code to extract the stats of any player. For example, to fetch t
 
 ### Step 6:
 
-Scrape Column Headers, use the code - 
+To scrape Column Headers, use the code - 
 
     soup.find_all('tr',attrs = {'class':'colhead'})
 
@@ -78,7 +78,7 @@ Scrape Column Headers, use the code -
 
 
 
-This code finds all instances of the code where the 'class' tag is given as 'colhead'. Since each page on EPSN's MLB stats page contains 50 players and there is a table header after every 10 players, the above code displays the table header code 5 times. However, if the find() function is used instead of the find_all() function, then the table header will be displayed only once.
+This code finds all instances of the code where the 'class' tag is given as 'colhead'. Since each page on EPSN's MLB stats page contains 50 players and there is a table header after every 10 players, the above code displays the table header code 5 times. However, if the <b>find()</b> function is used instead of the <b>find_all()</b> function, then the table header will be displayed only once.
 
     soup.find('tr',attrs = {'class':'colhead'})
     
@@ -86,7 +86,7 @@ This code finds all instances of the code where the 'class' tag is given as 'col
 
 <tr align="right" class="colhead"><td></td><td align="left" width="30%">PLAYER</td><td align="left">YRS</td><td><a href="//www.espn.com/mlb/history/leaders/_/breakdown/season/year/2022/sort/gamesPlayed" title="Games">G</a></td><td><a href="//www.espn.com/mlb/history/leaders/_/breakdown/season/year/2022/sort/atBats" title="At Bats">AB</a></td><td><a href="//www.espn.com/mlb/history/leaders/_/breakdown/season/year/2022/sort/runs" title="Runs Scored">R</a></td><td><a href="//www.espn.com/mlb/history/leaders/_/breakdown/season/year/2022/sort/hits" title="Hits">H</a></td><td><a href="//www.espn.com/mlb/history/leaders/_/breakdown/season/year/2022/sort/doubles" title="Doubles">2B</a></td><td><a href="//www.espn.com/mlb/history/leaders/_/breakdown/season/year/2022/sort/triples" title="Triples">3B</a></td><td><a href="//www.espn.com/mlb/history/leaders/_/breakdown/season/year/2022/sort/homeRuns" title="Home Runs">HR</a></td><td><a href="//www.espn.com/mlb/history/leaders/_/breakdown/season/year/2022/sort/RBIs" title="Runs Batted In">RBI</a></td><td><a href="//www.espn.com/mlb/history/leaders/_/breakdown/season/year/2022/sort/walks" title="Walks">BB</a></td><td><a href="//www.espn.com/mlb/history/leaders/_/breakdown/season/year/2022/sort/strikeouts" title="Strikeouts">SO</a></td><td><a href="//www.espn.com/mlb/history/leaders/_/breakdown/season/year/2022/sort/stolenBases" title="Stolen Bases">SB</a></td><td><a href="//www.espn.com/mlb/history/leaders/_/breakdown/season/year/2022/sort/caughtStealing" title="Caught Stealing">CS</a></td><td class="sortcell">BA</td></tr>
 
-In order to display a player's stats without all the HTML code, one can simply store the results of the find() function in a separate variable and then extract the text part from each part of the row.
+In order to display a player's stats without all the HTML code, the results of the <b>find()</b> function may be stored in a separate variable and then the text part may be extracted from each part of the row.
 
     row = soup.find('tr',attrs = {'class':'oddrow player-10-33900'})
     for data in row.find_all('td'):
@@ -176,7 +176,7 @@ For extracting the player rows, we can use the compile function of the 're' libr
 
 ### Step 9:
 
-This will get the stats on each page which contains only 50 players. To extract the data of all 347 players in the MLB 2022 season, the data from all the page URLs have to be scraped. All the URLs need to be recreated so that all the data from player 1 to 347 can be scraped in increments of 50, using the same code above.
+This will get the stats on each page which contains only 50 players. To extract the data of all 347 players in the MLB 2022 season, the data from all the page URLs have to be scraped. All the URLs need to be recreated so that the data from player 1 to 347 can be scraped in increments of 50, using the same code above.
 
     # Looping through each page to capture all 347 players in the league, 50 players at a time
     for i in range(1,347,50):
@@ -213,3 +213,23 @@ Export the data from the dataframe 'final_df' to a CSV file.
     # Export to csv
 
     final_df.to_csv(r"Desktop\mlb_stats.csv",index = False,sep = ',',encoding = 'utf-8')
+
+## Key:
+
+The column names in the above created data frame, which represent various batting stats, are given in short forms. Anyone who's not well versed with baseball stats may refer to the below key to know what each column represents.
+
+<b>PLAYER - </b>Player Name
+<b>YRS - </b>MLB Seasons Played (inclusive of the 2022 season for which the data was scraped)
+<b>G - </b>Games Played 
+<b>AB - </b>At-Bats, ie, Plate Appearences
+<b>R - </b>Runs
+<b>H - </b>Hits
+<b>2B - </b>Doubles
+<b>3B - </b>Triples
+<b>HR - </b>Home Runs
+<b>RBI - </b>Runs Batted In
+<b>BB - </b>Base on Balls, ie, Walks
+<b>SO - </b>Strike Outs
+<b>SB - </b>Stolen Bases
+<b>CS - </b>Caught Stealing
+<b>BA - </b>Batting Average
